@@ -1,14 +1,16 @@
 package com.gersimuca.customer_management_application.service;
 
-import com.gersimuca.customer_management_application.entity.ClientEntity;
+import com.gersimuca.customer_management_application.model.ClientEntity;
 import com.gersimuca.customer_management_application.enumaration.Role;
 import com.gersimuca.customer_management_application.exception.ApiException;
 import com.gersimuca.customer_management_application.repository.ClientRepository;
 import com.gersimuca.customer_management_application.utils.ClientUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService{
 

@@ -1,4 +1,4 @@
-package com.gersimuca.customer_management_application.entity;
+package com.gersimuca.customer_management_application.model;
 
 
 import jakarta.persistence.*;

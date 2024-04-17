@@ -1,6 +1,6 @@
 package com.gersimuca.customer_management_application.repository;
 
-import com.gersimuca.customer_management_application.entity.ClientEntity;
+import com.gersimuca.customer_management_application.model.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
