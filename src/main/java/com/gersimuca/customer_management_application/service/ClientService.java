@@ -1,6 +1,6 @@
 package com.gersimuca.customer_management_application.service;
 
-import com.gersimuca.customer_management_application.entity.ClientEntity;
+import com.gersimuca.customer_management_application.model.ClientEntity;
 import com.gersimuca.customer_management_application.enumaration.Role;
 
 public interface ClientService {

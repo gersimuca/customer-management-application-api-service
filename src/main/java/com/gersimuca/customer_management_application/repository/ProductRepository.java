@@ -1,6 +1,6 @@
 package com.gersimuca.customer_management_application.repository;
 
-import com.gersimuca.customer_management_application.entity.ProductEntity;
+import com.gersimuca.customer_management_application.model.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

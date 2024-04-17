@@ -1,4 +1,4 @@
-package com.gersimuca.customer_management_application.entity;
+package com.gersimuca.customer_management_application.model;
 
 import com.gersimuca.customer_management_application.enumaration.Role;
 import jakarta.persistence.*;
@@ -20,6 +20,7 @@ public class ClientEntity {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
+    @Column(insertable=false, updatable=false)
     private UUID client_id;
 
     @Column(name = "first_name", nullable = false)
