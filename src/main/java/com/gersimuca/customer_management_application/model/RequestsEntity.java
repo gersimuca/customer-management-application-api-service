@@ -19,7 +19,8 @@ public class RequestsEntity {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
-    private UUID request_id;
+    @Column(name = "request_id")
+    private Long requestId;
 
     @Column(name = "product_name", nullable = false)
     private String productName;

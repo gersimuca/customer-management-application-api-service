@@ -24,7 +24,7 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public ClientEntity updateClient(String firstName, String lastName, String email, String password, Role role) {
         Optional<ClientEntity> client = clientRepository.findByEmailIgnoreCase(email);
-        client.ifPresent(clientEntity -> clientRepository.save(ClientUtils.updateClientEntity(clientEntity.getClient_id(), firstName, lastName, email, password, role)));
+        client.ifPresent(clientEntity -> clientRepository.save(ClientUtils.updateClientEntity(firstName, lastName, email, password, role)));
         return client.orElseThrow(()-> new ApiException("Client not found with email: " + email));
     }
 

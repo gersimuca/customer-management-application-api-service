@@ -17,4 +17,14 @@ public class ClientRequest {
     private String email;
     @NotEmpty(message = "Password cannot be empty or null")
     private String password;
+
+    @Override
+    public String toString() {
+        return "ClientRequest{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
