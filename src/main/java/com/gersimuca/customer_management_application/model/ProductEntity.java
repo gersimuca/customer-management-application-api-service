@@ -6,10 +6,8 @@ import lombok.*;
 
 import java.util.UUID;
 
-
 @Entity
 @Table(name = "product")
-
 @Getter
 @Setter
 @ToString
@@ -19,8 +17,9 @@ import java.util.UUID;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false)
+    @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
+    @Column(insertable=false, updatable=false, name = "product_id")
     private UUID productId;
 
     @Column(name = "product_name", unique = true)

@@ -20,8 +20,8 @@ public class ClientEntity {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
-    @Column(insertable=false, updatable=false)
-    private UUID client_id;
+    @Column(insertable=false, updatable=false, name = "client_id")
+    private Long clientId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -39,7 +39,7 @@ public class ClientEntity {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "client_id") // name of the foreign key column in the requests table referencing client
+    @JoinColumn(name = "request_id") // name of the foreign key column in the requests table referencing client
     private RequestsEntity request;
 
 }
