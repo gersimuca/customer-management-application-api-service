@@ -17,7 +17,7 @@ public class ClientServiceImpl implements ClientService{
     private final ClientRepository clientRepository;
 
     @Override
-    public void createClient(String firstName, String lastName, String email, String password, Role role) {
+    public void createClient(String firstName, String lastName, String email, String password, Role role){
         clientRepository.save(ClientUtils.createClientEntity(firstName, lastName, email, password, role));
     }
 

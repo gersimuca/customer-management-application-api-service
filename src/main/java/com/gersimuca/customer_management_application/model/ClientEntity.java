@@ -2,10 +2,12 @@ package com.gersimuca.customer_management_application.model;
 
 import com.gersimuca.customer_management_application.enumaration.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "client")
@@ -35,11 +37,40 @@ public class ClientEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name= "role", nullable = false)
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "request_id") // name of the foreign key column in the requests table referencing client
-    private RequestsEntity request;
+    @NotNull
+    @Column(name="created_by")
+    private Long createdBy;
+
+    @NotNull
+    @Column(name="updated_by")
+    private Long updatedBy;
+
+    @NotNull
+    @CreatedDate
+    @Column(name="created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @CreatedDate
+    @Column(name="updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+
+    @PrePersist
+    public void beforePersist(){
+        setCreatedBy(clientId);
+        setCreatedAt(LocalDateTime.now());
+        setUpdatedBy(clientId);
+        setUpdatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    public void beforeUpdate(){
+        setUpdatedBy(clientId);
+        setUpdatedAt(LocalDateTime.now());
+    }
 
 }

@@ -4,7 +4,7 @@ import com.gersimuca.customer_management_application.model.ClientEntity;
 import com.gersimuca.customer_management_application.enumaration.Role;
 
 public class ClientUtils {
-    public static ClientEntity createClientEntity(String firstName, String lastName, String email, String password, Role role){
+    public static ClientEntity createClientEntity(String firstName, String lastName, String email, String password, Role role) {
         return ClientEntity.builder()
                 .firstName(firstName)
                 .lastName(lastName)
@@ -14,7 +14,7 @@ public class ClientUtils {
                 .build();
     }
 
-    public static ClientEntity updateClientEntity(String firstName, String lastName, String email, String password, Role role){
+    public static ClientEntity updateClientEntity(String firstName, String lastName, String email, String password, Role role) {
         return ClientEntity.builder()
                 .firstName(firstName)
                 .lastName(lastName)
