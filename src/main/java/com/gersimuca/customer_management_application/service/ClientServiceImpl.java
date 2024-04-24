@@ -5,13 +5,13 @@ import com.gersimuca.customer_management_application.enumaration.Role;
 import com.gersimuca.customer_management_application.exception.ApiException;
 import com.gersimuca.customer_management_application.repository.ClientRepository;
 import com.gersimuca.customer_management_application.utils.ClientUtils;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService{
 
     private final ClientRepository clientRepository;

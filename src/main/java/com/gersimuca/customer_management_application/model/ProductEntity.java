@@ -3,6 +3,7 @@ package com.gersimuca.customer_management_application.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -17,9 +18,9 @@ import java.util.UUID;
 public class ProductEntity {
 
     @Id
-    @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
-    @Column(insertable=false, updatable=false, name = "product_id")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "uuid2")
+    @Column(name = "product_id", columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID productId;
 
     @Column(name = "product_name", unique = true)
