@@ -1,11 +1,11 @@
 package com.gersimuca.customer_management_application.utils;
 
-import com.gersimuca.customer_management_application.model.ClientEntity;
+import com.gersimuca.customer_management_application.model.Client;
 import com.gersimuca.customer_management_application.enumaration.Role;
 
 public class ClientUtils {
-    public static ClientEntity createClientEntity(String firstName, String lastName, String email, String password, Role role) {
-        return ClientEntity.builder()
+    public static Client createClientEntity(String firstName, String lastName, String email, String password, Role role) {
+        return Client.builder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
@@ -14,8 +14,8 @@ public class ClientUtils {
                 .build();
     }
 
-    public static ClientEntity updateClientEntity(String firstName, String lastName, String email, String password, Role role) {
-        return ClientEntity.builder()
+    public static Client updateClientEntity(String firstName, String lastName, String email, String password, Role role) {
+        return Client.builder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .email(email)
