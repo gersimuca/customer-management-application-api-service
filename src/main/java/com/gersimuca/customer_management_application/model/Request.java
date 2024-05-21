@@ -15,12 +15,12 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestsEntity {
+public class Request {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
     @Column(name = "request_id")
-    private Long requestId;
+    private UUID requestId;
 
     @Column(name = "product_name", nullable = false)
     private String productName;
@@ -31,7 +31,7 @@ public class RequestsEntity {
     @Column(name = "status")
     private StatusRequest status;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "client_id")
-    private ClientEntity client;
+    private Client client;
 }

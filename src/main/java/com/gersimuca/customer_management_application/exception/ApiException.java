@@ -1,6 +1,47 @@
 package com.gersimuca.customer_management_application.exception;
 
+import org.springframework.http.HttpStatus;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ApiException extends RuntimeException{
-    public ApiException(String message) { super(message);}
-    public ApiException() { super("An error occurred");}
+
+    private Map<String, Object> params;
+    private String errorDetailMessage;
+    private HttpStatus status;
+    private boolean trace;
+
+    public ApiException() {
+        super();
+    }
+
+    public ApiException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ApiException(String message) {
+        super(message);
+    }
+
+    public ApiException(String message, HttpStatus status) {
+        this(message, null, status, new HashMap<>(), null, false);
+    }
+
+    public ApiException(String message, HttpStatus status, Map<String, Object> params) {
+        this(message, null, status, params, null, false);
+    }
+
+    public ApiException(Throwable cause) {
+        super(cause);
+    }
+
+    public ApiException(String message, Throwable cause, HttpStatus status,
+                            Map<String, Object> params, String errorDetailMessage, boolean trace) {
+        super(message, cause);
+        this.status = status;
+        this.params = params;
+        this.errorDetailMessage = errorDetailMessage;
+        this.trace = trace;
+    }
 }

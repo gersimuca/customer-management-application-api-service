@@ -8,6 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "client")
@@ -18,12 +20,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientEntity {
+public class Client {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
     @Column(insertable=false, updatable=false, name = "client_id")
-    private Long clientId;
+    private UUID clientId;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -43,11 +45,11 @@ public class ClientEntity {
 
     @NotNull
     @Column(name="created_by")
-    private Long createdBy;
+    private UUID createdBy;
 
     @NotNull
     @Column(name="updated_by")
-    private Long updatedBy;
+    private UUID updatedBy;
 
     @NotNull
     @CreatedDate
@@ -57,6 +59,9 @@ public class ClientEntity {
     @CreatedDate
     @Column(name="updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Request> requests;
 
 
     @PrePersist

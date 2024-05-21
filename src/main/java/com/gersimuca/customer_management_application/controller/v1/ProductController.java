@@ -1,11 +1,8 @@
 package com.gersimuca.customer_management_application.controller.v1;
 
 import com.gersimuca.customer_management_application.domain.Response;
-import com.gersimuca.customer_management_application.dto.ClientRequest;
 import com.gersimuca.customer_management_application.dto.ProductRequest;
-import com.gersimuca.customer_management_application.enumaration.Role;
-import com.gersimuca.customer_management_application.model.ProductEntity;
-import com.gersimuca.customer_management_application.service.ClientService;
+import com.gersimuca.customer_management_application.model.Product;
 import com.gersimuca.customer_management_application.service.ProductService;
 import com.gersimuca.customer_management_application.utils.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,17 +27,16 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Response> saveClient(@Valid @RequestBody ProductRequest product, HttpServletRequest request){
         log.warn(product);
         productService.createProduct(product.getProductName(), product.getManufacturer(), product.getQuantity(), product.getCountryOfOrigin());
         return ResponseEntity.created(getUri()).body(RequestUtils.getResponse(request, emptyMap(), "Product created successfully!", HttpStatus.CREATED));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Response> getProducts(@RequestParam int offset, @RequestParam int limit, HttpServletRequest request){
-        if(limit > 5) return ResponseEntity.badRequest().body(RequestUtils.getResponse(request, emptyMap(), "Bad Request!", HttpStatus.BAD_REQUEST));
-        List<ProductEntity> products =productService.getAllProductsByRequest(offset, limit);
+        List<Product> products = productService.getAllProductsByRequest(offset, limit);
         log.warn(products);
         return ResponseEntity.ok(RequestUtils.getResponse(request, Map.of("products", products), "Products retrieved successfully.", HttpStatus.OK));
     }

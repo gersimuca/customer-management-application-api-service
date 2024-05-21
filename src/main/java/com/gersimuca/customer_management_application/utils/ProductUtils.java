@@ -1,12 +1,12 @@
 package com.gersimuca.customer_management_application.utils;
 
-import com.gersimuca.customer_management_application.model.ProductEntity;
+import com.gersimuca.customer_management_application.model.Product;
 
 import java.util.UUID;
 
 public class ProductUtils {
-    public static ProductEntity createProductEntity(String productName, String manufacturer, String quantity, String countryOfOrigin) {
-        return ProductEntity.builder()
+    public static Product createProductEntity(String productName, String manufacturer, String quantity, String countryOfOrigin) {
+        return Product.builder()
                 .productId(UUID.randomUUID())
                 .productName(productName)
                 .manufacturer(manufacturer)
@@ -15,8 +15,8 @@ public class ProductUtils {
                 .build();
     }
 
-    public static ProductEntity updateProductEntity(UUID id, String productName, String manufacturer, String quantity, String countryOfOrigin) {
-        return ProductEntity.builder()
+    public static Product updateProductEntity(UUID id, String productName, String manufacturer, String quantity, String countryOfOrigin) {
+        return Product.builder()
                 .productId(id)
                 .productName(productName)
                 .manufacturer(manufacturer)
