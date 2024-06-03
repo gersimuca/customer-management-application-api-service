@@ -7,6 +7,7 @@ import com.gersimuca.customer_management_application.repository.ClientRepository
 import com.gersimuca.customer_management_application.service.ClientService;
 import com.gersimuca.customer_management_application.utils.ClientUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,11 +17,6 @@ import java.util.Optional;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
-
-    @Override
-    public void createClient(String firstName, String lastName, String email, String password, Role role){
-        clientRepository.save(ClientUtils.createClientEntity(firstName, lastName, email, password, role));
-    }
 
     @Override
     public Client updateClient(String firstName, String lastName, String email, String password, Role role) {

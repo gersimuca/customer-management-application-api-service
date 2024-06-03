@@ -4,6 +4,7 @@ import com.gersimuca.customer_management_application.enumaration.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 
@@ -22,9 +23,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Client {
     @Id
-    @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
-    @Column(insertable=false, updatable=false, name = "client_id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(updatable = false, nullable = false)
     private UUID clientId;
 
     @Column(name = "first_name", nullable = false)

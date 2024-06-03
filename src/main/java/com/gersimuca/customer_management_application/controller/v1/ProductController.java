@@ -1,7 +1,7 @@
 package com.gersimuca.customer_management_application.controller.v1;
 
 import com.gersimuca.customer_management_application.domain.Response;
-import com.gersimuca.customer_management_application.dto.ProductRequest;
+import com.gersimuca.customer_management_application.dto.request.ProductRequest;
 import com.gersimuca.customer_management_application.model.Product;
 import com.gersimuca.customer_management_application.service.ProductService;
 import com.gersimuca.customer_management_application.utils.RequestUtils;
