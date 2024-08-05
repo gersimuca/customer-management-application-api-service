@@ -1,7 +1,7 @@
 package com.gersimuca.customer_management_application.security;
 
 import com.gersimuca.customer_management_application.exception.ApiException;
-import com.gersimuca.customer_management_application.repository.UserRepository;
+import com.gersimuca.customer_management_application.feature.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

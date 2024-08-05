@@ -1,6 +1,6 @@
 package com.gersimuca.customer_management_application.security;
 
-import com.gersimuca.customer_management_application.repository.TokenRepository;
+import com.gersimuca.customer_management_application.feature.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
