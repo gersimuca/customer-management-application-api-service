@@ -1,7 +1,7 @@
 package com.gersimuca.customer_management_application.service.impl;
 
 import com.gersimuca.customer_management_application.exception.ApiException;
-import com.gersimuca.customer_management_application.model.Product;
+import com.gersimuca.customer_management_application.model.ProductEntity;
 import com.gersimuca.customer_management_application.repository.ProductRepository;
 import com.gersimuca.customer_management_application.service.ProductService;
 import com.gersimuca.customer_management_application.utils.ProductUtils;
@@ -20,8 +20,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product findProductById(UUID id) {
-        Optional<Product> product = productRepository.findById(id);
+    public ProductEntity findProductById(UUID id) {
+        Optional<ProductEntity> product = productRepository.findById(id);
         return product.orElseThrow(()-> new ApiException("Product not found!"));
     }
 
@@ -32,21 +32,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProductById(UUID id) {
-        Optional<Product> client = productRepository.findById(id);
+        Optional<ProductEntity> client = productRepository.findById(id);
         client.ifPresentOrElse(productRepository::delete, () -> { throw new ApiException("Product not found!");});
     }
 
     @Override
-    public Product updateProductById(UUID id, String productName, String manufacturer, String quantity, String countryOfOrigin) {
-            Optional<Product> product = productRepository.findById(id);
+    public ProductEntity updateProductById(UUID id, String productName, String manufacturer, String quantity, String countryOfOrigin) {
+            Optional<ProductEntity> product = productRepository.findById(id);
             product.ifPresent(productEntity -> productRepository.save(ProductUtils.updateProductEntity(id,productName, manufacturer,quantity,countryOfOrigin)));
             return product.orElseThrow(()-> new ApiException("Product not found!"));
     }
 
     @Override
-    public List<Product> getAllProductsByRequest(int offset, int limit) {
+    public List<ProductEntity> getAllProductsByRequest(int offset, int limit) {
         if(limit > 5) throw new ApiException("Cannot fetch data with custom limit");
-        Optional<List<Product>> products = productRepository.getAll(PageRequest.of(offset, limit));
+        Optional<List<ProductEntity>> products = productRepository.getAll(PageRequest.of(offset, limit));
         return products.orElseThrow(()-> new ApiException("Products not found!"));
     }
 }

@@ -6,30 +6,34 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "client")
-
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class Client {
+@NoArgsConstructor
+@Builder
+@Table(name = "user")
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(updatable = false, nullable = false)
-    private UUID clientId;
+    @Column(name = "user_id", columnDefinition = "uuid", updatable = false, nullable = false)
+    private UUID userId;
+
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -64,22 +68,58 @@ public class Client {
     @Column(name="updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Request> requests;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<RequestEntity> requestEntities;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<TokenEntity> tokens;
 
     @PrePersist
     public void beforePersist(){
-        setCreatedBy(clientId);
+        setCreatedBy(userId);
         setCreatedAt(LocalDateTime.now());
-        setUpdatedBy(clientId);
+        setUpdatedBy(userId);
         setUpdatedAt(LocalDateTime.now());
     }
 
     @PreUpdate
     public void beforeUpdate(){
-        setUpdatedBy(clientId);
+        setUpdatedBy(userId);
         setUpdatedAt(LocalDateTime.now());
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

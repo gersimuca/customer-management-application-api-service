@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class ProductEntity {
 
     @Id
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")

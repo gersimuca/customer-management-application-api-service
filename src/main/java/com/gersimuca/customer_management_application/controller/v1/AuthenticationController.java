@@ -31,12 +31,12 @@ public class AuthenticationController {
     private final ClientService clientService;
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/register")
-    public ResponseEntity<Response> saveClient(@RequestBody ClientRequest client, HttpServletRequest request){
-        clientService.createClient(client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), Role.USER);
-        log.info("Client with FirstName: {}, LastName: {}, Email: {}, Password: {} and Role: {} register successfully", client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), Role.USER);
-        return ResponseEntity.created(getUri()).body(RequestUtils.getResponse(request, emptyMap(), "Account created successfully! Pleas Login...", HttpStatus.CREATED));
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<Response> saveClient(@RequestBody ClientRequest client, HttpServletRequest request){
+//        clientService.createClient(client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), Role.USER);
+//        log.info("Client with FirstName: {}, LastName: {}, Email: {}, Password: {} and Role: {} register successfully", client.getFirstName(), client.getLastName(), client.getEmail(), client.getPassword(), Role.USER);
+//        return ResponseEntity.created(getUri()).body(RequestUtils.getResponse(request, emptyMap(), "Account created successfully! Pleas Login...", HttpStatus.CREATED));
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<Response> login(@RequestBody AuthenticationRequest auth, HttpServletRequest request){

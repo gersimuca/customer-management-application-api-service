@@ -1,8 +1,8 @@
 package com.gersimuca.customer_management_application.service.impl;
 
 import com.gersimuca.customer_management_application.exception.ApiException;
-import com.gersimuca.customer_management_application.model.Client;
-import com.gersimuca.customer_management_application.model.Request;
+import com.gersimuca.customer_management_application.model.UserEntity;
+import com.gersimuca.customer_management_application.model.RequestEntity;
 import com.gersimuca.customer_management_application.repository.RequestRepository;
 import com.gersimuca.customer_management_application.service.RequestService;
 import lombok.RequiredArgsConstructor;
@@ -16,36 +16,36 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class RequestServiceImpl implements RequestService{
-    private final RequestRepository requestRepository;
+    private final RequestRepository repository;
 
 
     @Override
-    public Request findRequestById(UUID id) {
-        return requestRepository.findById(id)
+    public RequestEntity findRequestById(UUID id) {
+        return repository.findById(id)
                 .orElseThrow(() -> new ApiException("Request not found"));
     }
 
     @Override
-    public void createRequest(Client client) {
+    public void createRequest(UserEntity userEntity) {
 
     }
 
     @Override
     public void deleteRequestById(UUID id) {
-        requestRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     @Override
-    public Request updateRequestById(UUID id) {
+    public RequestEntity updateRequestById(UUID id) {
         // Incomplete
-        Request request = requestRepository.findById(id)
+        RequestEntity requestEntity = repository.findById(id)
                 .orElseThrow(() -> new ApiException("Request not found"));
 
-        return request;
+        return requestEntity;
     }
 
     @Override
-    public List<Request> getAllRequest(int offset, int limit) {
+    public List<RequestEntity> getAllRequest(int offset, int limit) {
         return List.of();
     }
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Request {
+public class RequestEntity {
     @Id
     @SequenceGenerator(name = "primary_key_seq", sequenceName = "primary_key_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
@@ -32,7 +32,7 @@ public class Request {
     @Column(name = "status")
     private StatusRequest status;
 
-    @ManyToOne()
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }
