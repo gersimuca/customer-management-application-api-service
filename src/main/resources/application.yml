@@ -20,7 +20,7 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
     properties:
       hibernate:
         globally_quoted_identifiers: true
@@ -37,12 +37,12 @@ spring:
       enabled: true
       max-file-size: 1000MB
       max-request-size: 1000MB
-  flyway:
-    baseline-version: true
-    enabled: true
-    user: ${POSGRESQL_USERNAME}
-    password: ${POSGRESQL_PASSWORD}
-    baseline-description: "init"
+#  flyway:
+#    baseline-version: true
+#    enabled: true
+#    user: ${POSGRESQL_USERNAME}
+#    password: ${POSGRESQL_PASSWORD}
+#    baseline-description: "init"
 server:
   port: ${CONTAINER_PORT:8080}
   error:

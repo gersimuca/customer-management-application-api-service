@@ -2,7 +2,7 @@ package com.gersimuca.customer_management_application.controller.v1;
 
 import com.gersimuca.customer_management_application.domain.Response;
 import com.gersimuca.customer_management_application.dto.request.ProductRequest;
-import com.gersimuca.customer_management_application.model.Product;
+import com.gersimuca.customer_management_application.model.ProductEntity;
 import com.gersimuca.customer_management_application.service.ProductService;
 import com.gersimuca.customer_management_application.utils.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Response> getProducts(@RequestParam int offset, @RequestParam int limit, HttpServletRequest request){
-        List<Product> products = productService.getAllProductsByRequest(offset, limit);
+        List<ProductEntity> products = productService.getAllProductsByRequest(offset, limit);
         log.warn(products);
         return ResponseEntity.ok(RequestUtils.getResponse(request, Map.of("products", products), "Products retrieved successfully.", HttpStatus.OK));
     }
