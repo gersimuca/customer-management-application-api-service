@@ -1,39 +1,88 @@
 package com.gersimuca.cma.feature.product;
 
-
+import com.gersimuca.cma.feature.productcategory.ProductCategoryEntity;
+import com.gersimuca.cma.feature.shared.CustomField;
+import com.gersimuca.cma.feature.shared.File;
+import com.gersimuca.cma.feature.shared.Image;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.UUID;
+import java.util.Date;
+import java.util.List;
 
 @Entity
+@Data
 @Table(name = "product")
-@Getter
-@Setter
-@ToString
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class ProductEntity {
 
     @Id
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @GeneratedValue(generator = "uuid2")
-    @Column(name = "product_id", columnDefinition = "uuid", updatable = false, nullable = false)
-    private UUID productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "product_name", unique = true)
-    private String productName;
+    private boolean removed = false;
+    private boolean enabled = true;
 
-    @Column(name = "manufacturer")
-    private String manufacturer;
+    @ManyToOne
+    @JoinColumn(name = "product_category_id", nullable = false)
+    private ProductCategoryEntity productCategory;
 
-    @Column(name = "quantity")
-    private String quantity;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "product_supplier",
+//            joinColumns = @JoinColumn(name = "product_id"),
+//            inverseJoinColumns = @JoinColumn(name = "supplier_id")
+//    )
+//    private List<Supplier> suppliers;
 
-    @Column(name = "country_of_origin")
-    private String countryOfOrigin;
+    @Column(nullable = false)
+    private String name;
+
+    private String description;
+
+    private Integer number;
+
+    private String title;
+
+    @ElementCollection
+    private List<String> tags;
+
+    private String headerImage;
+
+    private String photo;
+
+    @ElementCollection
+    private List<Image> images;
+
+    @ElementCollection
+    private List<File> files;
+
+    private Double priceBeforeTax;
+
+    private Double taxRate = 0.0;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false, length = 255)
+    private String currency = "NA";
+
+    @ElementCollection
+    private List<CustomField> customField;
+
+    @CreationTimestamp
+    private Date created;
+
+    @UpdateTimestamp
+    private Date updated;
+
+    private boolean isPublic = true;
+
+    @PrePersist
+    @PreUpdate
+    private void trimFields() {
+        if (name != null) name = name.trim();
+        if (currency != null) currency = currency.trim().toUpperCase();
+    }
 }
-
-
