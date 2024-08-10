@@ -31,16 +31,17 @@ public class ClientEntity{
     private boolean enabled = true;
 
     @Column(nullable = false)
-    private String type = "company";
+    @Enumerated(EnumType.STRING)
+    private ClientType type = ClientType.COMPANY;
 
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private CompanyEntity company;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "people_id")
     private PeopleEntity people;
 
@@ -48,7 +49,7 @@ public class ClientEntity{
     @JoinColumn(name = "converted_from_id")
     private LeadEntity convertedFrom;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "client_product",
             joinColumns = @JoinColumn(name = "client_id"),
@@ -56,11 +57,11 @@ public class ClientEntity{
     )
     private List<ProductEntity> interestedIn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by_id")
     private AdminEntity createdBy;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_id")
     private AdminEntity assigned;
 

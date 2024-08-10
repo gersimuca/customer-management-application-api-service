@@ -37,9 +37,5 @@ public class AdminEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role = Role.OWNER;
-
-    public enum Role {
-        OWNER
-    }
+    private AdminRole role = AdminRole.OWNER;
 }
