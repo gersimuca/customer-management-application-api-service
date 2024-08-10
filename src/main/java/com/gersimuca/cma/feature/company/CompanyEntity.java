@@ -102,6 +102,11 @@ public class CompanyEntity {
     private String phone;
 
     @ElementCollection
+    @CollectionTable(
+            name = "company_other_phone",
+            joinColumns = @JoinColumn(name = "company_id")
+    )
+    @Column(name = "phone")
     private List<String> otherPhone;
 
     @Column
@@ -111,6 +116,11 @@ public class CompanyEntity {
     private String email;
 
     @ElementCollection
+    @CollectionTable(
+            name = "company_other_email",
+            joinColumns = @JoinColumn(name = "company_id")
+    )
+    @Column(name = "email")
     private List<String> otherEmail;
 
     @Column
@@ -120,9 +130,19 @@ public class CompanyEntity {
     private SocialMedia socialMedia;
 
     @ElementCollection
+    @CollectionTable(
+            name = "company_image",
+            joinColumns = @JoinColumn(name = "company_id")
+    )
+    @Column(name = "image")
     private List<Image> images;
 
     @ElementCollection
+    @CollectionTable(
+            name = "company_file",
+            joinColumns = @JoinColumn(name = "company_id")
+    )
+    @Column(name = "file")
     private List<File> files;
 
     private String category;
@@ -131,6 +151,11 @@ public class CompanyEntity {
     private String notes;
 
     @ElementCollection
+    @CollectionTable(
+            name = "company_tag",
+            joinColumns = @JoinColumn(name = "company_id")
+    )
+    @Column(name = "tag")
     private List<String> tags;
 
     @CreationTimestamp
