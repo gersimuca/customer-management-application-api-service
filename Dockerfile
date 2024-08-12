@@ -23,7 +23,7 @@ RUN mvn package -DskipTests
 RUN jar xvf target/web-app-0.0.1-SNAPSHOT.jar
 RUN jdeps --ignore-missing-deps -q  \
     --recursive  \
-    --multi-release 17  \
+    --multi-release 21  \
     --print-module-deps  \
     --class-path 'BOOT-INF/lib/*'  \
     target/web-app-0.0.1-SNAPSHOT.jar > modules.txt
@@ -36,15 +36,15 @@ RUN $JAVA_HOME/bin/jlink \
          --no-man-pages \
          --no-header-files \
          --compress=2 \
-         --output /optimized-jdk-17
+         --output /optimized-jdk-21
 
 # Second stage
 FROM alpine:latest
-ENV JAVA_HOME=/opt/jdk/jdk-17
+ENV JAVA_HOME=/opt/jdk/jdk-21
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # copy JRE from the base image
-COPY --from=jre-builder /optimized-jdk-17 $JAVA_HOME
+COPY --from=jre-builder /optimized-jdk-21 $JAVA_HOME
 
 # Add app user
 ARG APPLICATION_USER=gersimuca
