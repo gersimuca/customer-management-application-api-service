@@ -9,17 +9,17 @@ import lombok.Data;
 @Table(name = "item")
 public class ItemEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private String itemName;
-    private String description;
-    private Integer quantity;
-    private Double price;
-    private Double total;
+  private String itemName;
+  private String description;
+  private Integer quantity;
+  private Double price;
+  private Double total;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "offer_id")
-    private OfferEntity offer;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "offer_id")
+  private OfferEntity offer;
 }

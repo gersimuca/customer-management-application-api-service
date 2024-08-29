@@ -10,9 +10,10 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthenticationRequest {
-    @NotEmpty(message = "email cannot be empty or null")
-    @Email(message = "Invalid email address")
-    private String email;
-    @NotEmpty(message = "password cannot be empty or null")
-    private String password;
+  @NotEmpty(message = "email cannot be empty or null")
+  @Email(message = "Invalid email address")
+  private String email;
+
+  @NotEmpty(message = "password cannot be empty or null")
+  private String password;
 }

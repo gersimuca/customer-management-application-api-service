@@ -3,66 +3,59 @@ package com.gersimuca.cma.feature.productcategory;
 import com.gersimuca.cma.feature.shared.File;
 import com.gersimuca.cma.feature.shared.Image;
 import jakarta.persistence.*;
+import java.util.Date;
+import java.util.List;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
 @Table(name = "product_category")
 public class ProductCategoryEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private boolean removed = false;
-    private boolean enabled = true;
+  private boolean removed = false;
+  private boolean enabled = true;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    private String description;
+  private String description;
 
-    @Column(nullable = false)
-    private String color;
+  @Column(nullable = false)
+  private String color;
 
-    private boolean hasParentCategory = false;
+  private boolean hasParentCategory = false;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_category_id")
-    private ProductCategoryEntity parentCategory;
+  @ManyToOne
+  @JoinColumn(name = "parent_category_id")
+  private ProductCategoryEntity parentCategory;
 
-    private String title;
+  private String title;
 
-    @ElementCollection
-    private List<String> tags;
+  @ElementCollection private List<String> tags;
 
-    private String icon;
-    private String headerImage;
-    private String photo;
+  private String icon;
+  private String headerImage;
+  private String photo;
 
-    @ElementCollection
-    private List<Image> images;
+  @ElementCollection private List<Image> images;
 
-    @ElementCollection
-    private List<File> files;
+  @ElementCollection private List<File> files;
 
-    @CreationTimestamp
-    private Date created;
+  @CreationTimestamp private Date created;
 
-    @UpdateTimestamp
-    private Date updated;
+  @UpdateTimestamp private Date updated;
 
-    private boolean isPublic = true;
+  private boolean isPublic = true;
 
-    @PrePersist
-    @PreUpdate
-    private void trimFields() {
-        if (color != null) color = color.trim().toLowerCase();
-    }
+  @PrePersist
+  @PreUpdate
+  private void trimFields() {
+    if (color != null) color = color.trim().toLowerCase();
+  }
 }
-
