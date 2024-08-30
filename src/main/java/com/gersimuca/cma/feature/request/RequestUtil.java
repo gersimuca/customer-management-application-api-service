@@ -2,7 +2,7 @@ package com.gersimuca.cma.feature.request;
 
 import static org.apache.logging.log4j.util.Strings.EMPTY;
 
-import com.gersimuca.cma.domain.Response;
+import com.gersimuca.cma.common.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Email;

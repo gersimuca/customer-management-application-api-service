@@ -1,7 +1,7 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
+import com.gersimuca.cma.common.exception.ApiException;
 import com.gersimuca.cma.enumaration.Role;
-import com.gersimuca.cma.exception.ApiException;
 import com.gersimuca.cma.feature.user.UserDto;
 import com.gersimuca.cma.feature.user.UserDtoMapper;
 import com.gersimuca.cma.feature.user.UserEntity;

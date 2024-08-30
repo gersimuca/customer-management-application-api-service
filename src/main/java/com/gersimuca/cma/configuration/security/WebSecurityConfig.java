@@ -1,4 +1,4 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

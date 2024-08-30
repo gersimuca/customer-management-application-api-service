@@ -1,4 +1,4 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
 import com.gersimuca.cma.feature.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;

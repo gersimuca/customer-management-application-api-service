@@ -1,4 +1,4 @@
-package com.gersimuca.cma.config;
+package com.gersimuca.cma.configuration;
 
 import java.util.concurrent.Executor;
 import org.springframework.context.annotation.Bean;

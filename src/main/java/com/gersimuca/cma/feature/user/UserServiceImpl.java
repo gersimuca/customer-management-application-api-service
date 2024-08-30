@@ -1,7 +1,7 @@
 package com.gersimuca.cma.feature.user;
 
+import com.gersimuca.cma.common.exception.ApiException;
 import com.gersimuca.cma.enumaration.Role;
-import com.gersimuca.cma.exception.ApiException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

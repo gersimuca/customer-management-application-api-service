@@ -1,6 +1,6 @@
 package com.gersimuca.cma.feature.request;
 
-import com.gersimuca.cma.exception.ApiException;
+import com.gersimuca.cma.common.exception.ApiException;
 import com.gersimuca.cma.feature.user.UserEntity;
 import java.util.List;
 import java.util.UUID;

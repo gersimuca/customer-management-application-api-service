@@ -1,4 +1,4 @@
-package com.gersimuca.cma.exception;
+package com.gersimuca.cma.common.exception;
 
 import java.util.HashMap;
 import java.util.Map;

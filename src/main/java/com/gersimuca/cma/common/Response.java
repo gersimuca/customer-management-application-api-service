@@ -1,4 +1,4 @@
-package com.gersimuca.cma.domain;
+package com.gersimuca.cma.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Map;

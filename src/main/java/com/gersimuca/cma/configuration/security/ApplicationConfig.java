@@ -1,6 +1,6 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
-import com.gersimuca.cma.exception.ApiException;
+import com.gersimuca.cma.common.exception.ApiException;
 import com.gersimuca.cma.feature.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

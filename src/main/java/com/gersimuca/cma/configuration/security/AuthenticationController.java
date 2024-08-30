@@ -1,6 +1,6 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
-import com.gersimuca.cma.domain.Response;
+import com.gersimuca.cma.common.Response;
 import com.gersimuca.cma.feature.request.RequestUtil;
 import com.gersimuca.cma.feature.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;

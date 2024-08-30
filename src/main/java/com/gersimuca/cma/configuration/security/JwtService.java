@@ -1,4 +1,4 @@
-package com.gersimuca.cma.security;
+package com.gersimuca.cma.configuration.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
