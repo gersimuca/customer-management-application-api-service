@@ -18,7 +18,7 @@ spring:
     open-in-view: false
     database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
     generate-ddl: true
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create-drop
     properties:
@@ -49,3 +49,11 @@ server:
     path: /user/error
     whitelabel:
       enabled: true
+
+async:
+  core-pool-size: 5
+  max-pool-size: 20
+  queue-capacity: 50
+  keep-alive-seconds: 60
+  wait-for-tasks-to-complete-on-shutdown: true
+  rejected-execution-handler-policy: abort # Options: abort, callerruns, discard, discardoldest

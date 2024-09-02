@@ -1,7 +1,9 @@
 package com.gersimuca.cma.feature.admin;
 
+import com.gersimuca.cma.common.annotation.DataTransferObject;
 import java.util.Date;
 
+@DataTransferObject
 public record AdminDto(
     Long id,
     boolean removed,
