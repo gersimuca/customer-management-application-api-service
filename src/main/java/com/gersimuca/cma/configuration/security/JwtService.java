@@ -10,10 +10,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-@Service
+@Deprecated
+@NoRepositoryBean
 public class JwtService {
 
   private static final String SECRET_KEY =

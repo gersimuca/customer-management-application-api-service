@@ -1,6 +1,6 @@
 package com.gersimuca.cma.configuration;
 
-import com.gersimuca.cma.common.handler.TaskRejectionHandler;
+import com.gersimuca.cma.common.exception.TaskRejectionHandler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.RejectedExecutionHandler;
