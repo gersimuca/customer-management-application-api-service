@@ -1,4 +1,4 @@
-package com.gersimuca.cma.configuration;
+package com.gersimuca.cma.common;
 
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.ReportingPolicy;
