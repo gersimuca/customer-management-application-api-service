@@ -1,7 +1,5 @@
-package com.gersimuca.cma.common.handler;
+package com.gersimuca.cma.common.exception;
 
-import com.gersimuca.cma.common.exception.ErrorSeverity;
-import com.gersimuca.cma.common.exception.TaskRejectionException;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import org.springframework.http.HttpStatus;

@@ -13,7 +13,6 @@ public class AdminService {
   public AdminDto findAdminById(final Long id) {
     AdminEntity admin =
         repository.findById(id).orElseThrow(() -> new ApiException("Admin not found"));
-
     return mapper.mapToDto(admin);
   }
 }

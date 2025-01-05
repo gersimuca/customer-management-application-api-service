@@ -1,4 +1,23 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1080558841274-ju73rkqqh1vtagqst87iermlpd3s2e22.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+  cloud:
+    openfeign:
+      oauth2:
+        enabled: true
+
   profiles:
     active: ${ACTIVE_PROFILE:dev}
   jackson:
@@ -14,6 +33,17 @@ spring:
     url:  jdbc:postgresql://${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/${POSTGRESQL_DATABASE}
     username: ${POSGRESQL_USERNAME}
     password: ${POSGRESQL_PASSWORD}
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 50         # Maximum number of connections in the pool
+      minimum-idle: 10              # Minimum idle connections
+      idle-timeout: 30000           # Time (ms) a connection is allowed to sit idle before being removed
+      max-lifetime: 1800000         # Maximum lifetime of a connection (ms) (30 mins recommended)
+      connection-timeout: 20000     # Maximum time (ms) to wait for a connection (20 seconds recommended)
+      pool-name: HikariCP-Pool      # Custom pool name for better monitoring
+      auto-commit: true             # Set to true if autocommit should be enabled by default
+      validation-timeout: 5000      # Maximum time (ms) to wait for a connection validation
+      leak-detection-threshold: 2000 # Log any connection usage over 2 seconds
   jpa:
     open-in-view: false
     database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect

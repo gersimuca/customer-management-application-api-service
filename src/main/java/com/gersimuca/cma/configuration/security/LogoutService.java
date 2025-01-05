@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Deprecated
 public class LogoutService implements LogoutHandler {
 
   private final TokenRepository tokenRepository;

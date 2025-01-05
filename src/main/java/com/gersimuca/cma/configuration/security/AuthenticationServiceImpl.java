@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -25,11 +26,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   public Map<?, ?> authenticate(String email, String password) {
     Map<String, Object> data = new HashMap<>();
 
-    Optional<UserEntity> client = userRepository.findByEmailIgnoreCase(email);
-    if (client.isEmpty())
-      client.orElseThrow(() -> new ApiException("Account not found by email address provided"));
+    UserEntity client = userRepository.findByEmailIgnoreCase(email)
+            .orElseThrow(() -> new ApiException("Account not found by email address provided"));
 
-    UserDto userDto = new UserDtoMapper().apply(client.get());
+    UserDto userDto = new UserDtoMapper().apply(client);
     data.put("user", userDto);
     return data;
   }
