@@ -1,6 +1,6 @@
 package com.gersimuca.cma.feature.admin;
 
-import com.gersimuca.cma.configuration.MapperConfig;
+import com.gersimuca.cma.common.MapperConfig;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MapperConfig.class)

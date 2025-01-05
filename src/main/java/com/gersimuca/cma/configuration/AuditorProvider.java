@@ -1,5 +1,7 @@
 package com.gersimuca.cma.configuration;
 
+import com.gersimuca.cma.common.AuthenticationProvider;
+import com.gersimuca.cma.common.exception.AuthenticationNotSupportedException;
 import com.gersimuca.cma.feature.user.UserEntity;
 import com.gersimuca.cma.feature.user.UserRepository;
 import lombok.RequiredArgsConstructor;
