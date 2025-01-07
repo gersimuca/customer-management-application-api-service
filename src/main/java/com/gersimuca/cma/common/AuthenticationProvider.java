@@ -9,12 +9,12 @@ import org.springframework.security.oauth2.jwt.Jwt;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AuthenticationProvider {
 
-    public static Authentication getAuthenticationFromContext() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
+  public static Authentication getAuthenticationFromContext() {
+    return SecurityContextHolder.getContext().getAuthentication();
+  }
 
-    public static String getPreferredUsernameFromContext() {
-        return ((Jwt) getAuthenticationFromContext().getPrincipal())
-                .getClaimAsString("preferred_username");
-    }
+  public static String getPreferredUsernameFromContext() {
+    return ((Jwt) getAuthenticationFromContext().getPrincipal())
+        .getClaimAsString("preferred_username");
+  }
 }

@@ -2,7 +2,6 @@ package com.gersimuca.cma.feature.user;
 
 import com.gersimuca.cma.enumaration.Role;
 import com.gersimuca.cma.feature.request.RequestEntity;
-import com.gersimuca.cma.feature.token.TokenEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -71,9 +70,6 @@ public class UserEntity implements UserDetails {
       orphanRemoval = true,
       cascade = CascadeType.ALL)
   private List<RequestEntity> requestEntities;
-
-  @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-  private List<TokenEntity> tokens;
 
   @PrePersist
   public void beforePersist() {

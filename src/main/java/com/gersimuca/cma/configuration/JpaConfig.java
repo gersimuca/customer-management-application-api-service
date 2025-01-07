@@ -12,12 +12,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableJpaRepositories(
-        basePackages = "com.gersimuca.cma.feature",
-        repositoryBaseClass = BaseRepositoryImpl.class)
+    basePackages = "com.gersimuca.cma.feature",
+    repositoryBaseClass = BaseRepositoryImpl.class)
 public class JpaConfig {
 
-    @Bean
-    public AuditorAware<UserEntity> auditorAware(UserRepository userRepository) {
-        return new AuditorProvider(userRepository);
-    }
+  @Bean
+  public AuditorAware<UserEntity> auditorAware(UserRepository userRepository) {
+    return new AuditorProvider(userRepository);
+  }
 }
