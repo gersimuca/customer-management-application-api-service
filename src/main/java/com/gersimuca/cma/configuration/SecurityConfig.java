@@ -20,43 +20,42 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationConverter jwtAuthenticationConverter;
+  private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
-    private static final String[] ALLOW_LIST = {
-            "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/resources/**"
-    };
+  private static final String[] ALLOW_LIST = {
+    "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/resources/**"
+  };
 
-    @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        var tokenResolver = new DefaultBearerTokenResolver();
-        tokenResolver.setAllowUriQueryParameter(true);
+  @Bean
+  protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    var tokenResolver = new DefaultBearerTokenResolver();
+    tokenResolver.setAllowUriQueryParameter(true);
 
-        http.authorizeHttpRequests(
-                        request ->
-                                request
-                                        .requestMatchers(ALLOW_LIST)
-                                        .permitAll()
-                                        .requestMatchers(getPublicEndpoints())
-                                        .permitAll()
-                                        .anyRequest()
-                                        .authenticated())
-                .oauth2ResourceServer(
-                        oauthConfigurer ->
-                                oauthConfigurer
-                                        .bearerTokenResolver(tokenResolver)
-                                        .jwt(
-                                                jwtConfigurer ->
-                                                        jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)));
+    http.authorizeHttpRequests(
+            request ->
+                request
+                    .requestMatchers(ALLOW_LIST)
+                    .permitAll()
+                    .requestMatchers(getPublicEndpoints())
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .oauth2ResourceServer(
+            oauthConfigurer ->
+                oauthConfigurer
+                    .bearerTokenResolver(tokenResolver)
+                    .jwt(
+                        jwtConfigurer ->
+                            jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter)));
 
-        return http.build();
-    }
+    return http.build();
+  }
 
-    private EndpointRequest.EndpointRequestMatcher getPublicEndpoints() {
-        return EndpointRequest.to(
-                HealthEndpoint.class,
-                PrometheusScrapeEndpoint.class,
-                MetricsEndpoint.class,
-                InfoEndpoint.class);
-    }
+  private EndpointRequest.EndpointRequestMatcher getPublicEndpoints() {
+    return EndpointRequest.to(
+        HealthEndpoint.class,
+        PrometheusScrapeEndpoint.class,
+        MetricsEndpoint.class,
+        InfoEndpoint.class);
+  }
 }
-
