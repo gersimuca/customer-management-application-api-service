@@ -1,38 +1,42 @@
 package com.gersimuca.cma.feature.user;
 
+import com.gersimuca.cma.common.repository.BaseRepository;
 import java.util.Optional;
-import java.util.UUID;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, UUID> {
+public interface UserRepository extends BaseRepository<UserEntity, Long> {
+
   Optional<UserEntity> findByEmailIgnoreCase(String email);
 
+  //  // Query using JPQL with index params
+  //  @Query("SELECT c FROM UserEntity  c WHERE c.givenName = ?1 AND c.familyName = ?2")
+  //  UserEntity findByFirstNameAndLastNameIndexParams(String givenName, String familyName);
+  //
+  //  // Query using JPQL with named params
+  //  @Query("SELECT c FROM UserEntity  c WHERE c.givenName = :firstName AND c.familyName =
+  // :familyName")
+  //  UserEntity findByFirstnameAndLastnameNamedParams(
+  //      @Param("givenName") String givenName, @Param("lastName") String familyName);
+  //
+  //  // Query using Native SQL with index params
+  //  @Query(
+  //      value = "SELECT c FROM UserEntity  c WHERE c.givenName = ?1 AND c.familyName = ?2",
+  //      nativeQuery = true)
+  //  UserEntity findByFirstNameAndLastNameNativeQueryIndexParams(String givenName, String
+  // familyName);
+  //
+  //  // Query using Native SQL with index params
+  //  @Query(
+  //      value =
+  //          "SELECT c FROM UserEntity  c WHERE c.givenName = :givenName AND c.familyName =
+  // :familyName",
+  //      nativeQuery = true)
+  //  UserEntity findByFirstNameAndLastNameNativeQueryNamedParams(
+  //      @Param("givenName") String givenName, @Param("familyName") String familyName);
+
+  // Application Core
+  boolean existsByUsername(String username);
+
   Optional<UserEntity> findByUsername(String username);
-
-  // Query using JPQL with index params
-  @Query("SELECT c FROM UserEntity  c WHERE c.firstName = ?1 AND c.lastName = ?2")
-  UserEntity findByFirstNameAndLastNameIndexParams(String firstName, String lastName);
-
-  // Query using JPQL with named params
-  @Query("SELECT c FROM UserEntity  c WHERE c.firstName = :firstName AND c.lastName = :lastName")
-  UserEntity findByFirstnameAndLastnameNamedParams(
-      @Param("firstName") String firstName, @Param("lastName") String lastName);
-
-  // Query using Native SQL with index params
-  @Query(
-      value = "SELECT c FROM UserEntity  c WHERE c.firstName = ?1 AND c.lastName = ?2",
-      nativeQuery = true)
-  UserEntity findByFirstNameAndLastNameNativeQueryIndexParams(String firstName, String lastName);
-
-  // Query using Native SQL with index params
-  @Query(
-      value =
-          "SELECT c FROM UserEntity  c WHERE c.firstName = :firstName AND c.lastName = :lastName",
-      nativeQuery = true)
-  UserEntity findByFirstNameAndLastNameNativeQueryNamedParams(
-      @Param("firstName") String firstName, @Param("lastName") String lastName);
 }
