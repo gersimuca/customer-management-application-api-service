@@ -3,7 +3,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${SSO_JWK_SET_URI:http://localhost:8180/auth/realms/LHT/protocol/openid-connect/certs}
+          jwk-set-uri: ${SSO_JWK_SET_URI:http://localhost:8180/auth/realms/ERP/protocol/openid-connect/certs}
   jackson:
     default-property-inclusion: non_null
     serialization:
@@ -21,15 +21,14 @@ spring:
   jpa:
     open-in-view: false
     properties:
-      hibernate:
-        globally_quoted_identifiers: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
-    generate-ddl: true
-    show-sql: false
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: UNSPECIFIED
     hibernate:
-      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: validate
   servlet:
     multipart:
       enabled: true
@@ -41,17 +40,12 @@ spring:
     table: flyway_schema_history
     locations: db/migration,db/importMigration
     validate-on-migrate: true
-    enabled: true
-    user: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    baseline-description: "init"
-    loggers: slf4j
 
 sso:
   client-id: ${SSO_CLIENT_ID:erp}
 
 cors:
-  allowed-origins: ${CORS_ALLOWED_ORIGINS:true}
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
 
 management:
   endpoints:

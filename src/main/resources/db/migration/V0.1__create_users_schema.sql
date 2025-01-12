@@ -1,28 +1,22 @@
-DROP TABLE IF EXISTS users;
+drop table if exists users;
 
-CREATE TABLE users (
-                       user_id              BIGSERIAL PRIMARY KEY,
-                       username             VARCHAR(8) NOT NULL UNIQUE,
-                       given_name           VARCHAR(512) NOT NULL,
-                       family_name          VARCHAR(512) NOT NULL,
-                       email                VARCHAR(1024) NOT NULL,
-                       preferred_language   VARCHAR(10) NOT NULL DEFAULT 'en-US',
-                       is_active            BOOLEAN NOT NULL DEFAULT TRUE,
-                       last_updated_user_id BIGINT DEFAULT 1,
-                       last_updated_at      TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                       created_user_id      BIGINT DEFAULT 1,
-                       created_at           TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table users
+(
+    user_id              bigint identity (1,1),
+    username             varchar(8)    not null unique,
+    given_name           varchar(512)  not null,
+    family_name          varchar(512)  not null,
+    email                varchar(1024) not null,
+    preferred_language   varchar(10)   not null default 'en-US',
+    is_active            bit           not null default 1,
+    last_updated_user_id bigint        not null default 1,
+    last_updated_at      datetimeoffset      not null default current_timestamp,
+    created_user_id      bigint        not null default 1,
+    created_at           datetimeoffset      not null default current_timestamp,
+    primary key (user_id)
 );
 
--- alter table users
---     add constraint fk_users_last_updated_user_id foreign key (last_updated_user_id) references users (user_id);
--- alter table users
---     add constraint fk_users_created_user_id foreign key (created_user_id) references users (user_id);
-
-ALTER TABLE users
-    ADD CONSTRAINT fk_users_last_updated_user_id
-        FOREIGN KEY (last_updated_user_id) REFERENCES users (user_id) DEFERRABLE INITIALLY DEFERRED;
-
-ALTER TABLE users
-    ADD CONSTRAINT fk_users_created_user_id
-        FOREIGN KEY (created_user_id) REFERENCES users (user_id) DEFERRABLE INITIALLY DEFERRED;
+alter table users
+    add constraint fk_users_last_updated_user_id foreign key (last_updated_user_id) references users (user_id);
+alter table users
+    add constraint fk_users_created_user_id foreign key (created_user_id) references users (user_id);
