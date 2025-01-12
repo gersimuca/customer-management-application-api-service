@@ -1,0 +1,94 @@
+{
+  "realm": "ERP",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "erp",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "erp_ro",
+      "enabled": true,
+      "lastName": "ERP",
+      "firstName": "Testuser 2",
+      "email": "erp_ro@lht.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "secret"
+        }
+      ],
+      "clientRoles": {
+        "erp": [
+          "readonly"
+        ]
+      }
+    },
+    {
+      "username": "erp_user",
+      "enabled": true,
+      "lastName": "ERP",
+      "firstName": "Testuser 3",
+      "email": "erp_user@erp.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "secret"
+        }
+      ],
+      "clientRoles": {
+        "erp": [
+          "readonly",
+          "user"
+        ]
+      }
+    },
+    {
+      "username": "erp_adm",
+      "enabled": true,
+      "lastName": "ERP",
+      "firstName": "Testuser 4",
+      "email": "erp_adm@lht.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "secret"
+        }
+      ],
+      "clientRoles": {
+        "erp": [
+          "user",
+          "admin",
+          "readonly"
+        ]
+      }
+    }
+  ],
+  "roles": {
+    "client": {
+      "erp": [
+        {
+          "name": "admin"
+        },
+        {
+          "name": "readonly"
+        },
+        {
+          "name": "user"
+        }
+      ]
+    }
+  }
+}

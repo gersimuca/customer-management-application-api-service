@@ -1,0 +1,36 @@
+name: erp-app
+services:
+  init-db:
+    image: mcr.microsoft.com/mssql-tools:latest
+    container_name: erp-init-db
+    volumes:
+      - ./init-db.sql:/init-db.sql
+    env_file:
+      - sqlserver.env
+    command: /bin/bash -c '/opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P $$MSSQL_SA_PASSWORD -i init-db.sql'
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-CU14-ubuntu-22.04
+    healthcheck:
+      test: [ 'CMD-SHELL', '/opt/mssql-tools18/bin/sqlcmd -U sa -P $$MSSQL_SA_PASSWORD -Q "select 1" -C' ]
+      interval: 5s
+      retries: 10
+    container_name: erp-mssql
+    env_file:
+      - sqlserver.env
+    ports:
+      - "1433:1433"
+
+  local-erp-sso:
+    container_name: erp-sso
+    image: quay.io/keycloak/keycloak:25.0.2
+    volumes:
+      - ./import:/opt/keycloak/data/import
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "8180:8180"
+    command: [ "start-dev", "--http-relative-path=/auth", "--import-realm", "--http-port=8180" ]
