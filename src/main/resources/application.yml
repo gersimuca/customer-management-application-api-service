@@ -1,25 +1,9 @@
 spring:
   security:
     oauth2:
-      client:
-        registration:
-          google:
-            client-id: 1080558841274-ju73rkqqh1vtagqst87iermlpd3s2e22.apps.googleusercontent.com
-            client-secret: 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
-            scope: profile, email
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
-        provider:
-          google:
-            authorization-uri: https://accounts.google.com/o/oauth2/auth
-            token-uri: https://oauth2.googleapis.com/token
-            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
-  cloud:
-    openfeign:
-      oauth2:
-        enabled: true
-
-  profiles:
-    active: ${ACTIVE_PROFILE:dev}
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${SSO_JWK_SET_URI:http://localhost:8180/auth/realms/LHT/protocol/openid-connect/certs}
   jackson:
     default-property-inclusion: non_null
     serialization:
@@ -30,55 +14,78 @@ spring:
     deserialization:
       fail-on-unknown-properties: false
   datasource:
-    url:  jdbc:postgresql://${POSTGRESQL_HOST}:${POSTGRESQL_PORT}/${POSTGRESQL_DATABASE}
-    username: ${POSGRESQL_USERNAME}
-    password: ${POSGRESQL_PASSWORD}
-    hikari:
-      connection-test-query: SELECT 1
-      maximum-pool-size: 50         # Maximum number of connections in the pool
-      minimum-idle: 10              # Minimum idle connections
-      idle-timeout: 30000           # Time (ms) a connection is allowed to sit idle before being removed
-      max-lifetime: 1800000         # Maximum lifetime of a connection (ms) (30 mins recommended)
-      connection-timeout: 20000     # Maximum time (ms) to wait for a connection (20 seconds recommended)
-      pool-name: HikariCP-Pool      # Custom pool name for better monitoring
-      auto-commit: true             # Set to true if autocommit should be enabled by default
-      validation-timeout: 5000      # Maximum time (ms) to wait for a connection validation
-      leak-detection-threshold: 2000 # Log any connection usage over 2 seconds
+    url: ${DB_JDBC_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_JDBC_DRIVER}
   jpa:
     open-in-view: false
-    database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
-    generate-ddl: true
-    show-sql: false
-    hibernate:
-      ddl-auto: create-drop
     properties:
       hibernate:
         globally_quoted_identifiers: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-  sql:
-    init:
-      mode: never
-      continue-on-error: false
-      schema-locations: classpath:data/schema.sql
-      data-locations: classpath:data/data.sql
+    database-platform: org.hibernate.dialect.PostgreSQLInnoDBDialect
+    generate-ddl: true
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
   servlet:
     multipart:
       enabled: true
       max-file-size: 1000MB
       max-request-size: 1000MB
-#  flyway:
-#    baseline-version: true
-#    enabled: true
-#    user: ${POSGRESQL_USERNAME}
-#    password: ${POSGRESQL_PASSWORD}
-#    baseline-description: "init"
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+    table: flyway_schema_history
+    locations: db/migration,db/importMigration
+    validate-on-migrate: true
+    enabled: true
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    baseline-description: "init"
+    loggers: slf4j
+
+sso:
+  client-id: ${SSO_CLIENT_ID:erp}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:true}
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, prometheus
+      base-path: /status
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    prometheus:
+      enabled: true
+  server:
+    port: 8090
+
+
 server:
-  port: ${CONTAINER_PORT:8080}
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    min-response-size: 2048
+  port: 8080
   error:
     path: /user/error
     whitelabel:
       enabled: true
+
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
 
 async:
   core-pool-size: 5
