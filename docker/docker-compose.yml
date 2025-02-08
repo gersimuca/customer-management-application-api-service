@@ -22,7 +22,6 @@ services:
       - sqlserver.env
     ports:
       - "1433:1433"
-
   local-erp-sso:
     container_name: erp-sso
     image: quay.io/keycloak/keycloak:25.0.2
@@ -34,7 +33,6 @@ services:
     ports:
       - "8180:8180"
     command: [ "start-dev", "--http-relative-path=/auth", "--import-realm", "--http-port=8180" ]
-
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -42,8 +40,6 @@ services:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
-    networks:
-      - monitoring
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -52,13 +48,3 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
-    volumes:
-      - grafana-storage:/var/lib/grafana
-    networks:
-      - monitoring
-
-volumes:
-  grafana-storage:
-networks:
-  monitoring:
-    driver: bridge

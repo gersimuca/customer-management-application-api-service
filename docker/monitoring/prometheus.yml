@@ -7,6 +7,3 @@ scrape_configs:
       - targets: ['host.docker.internal:8090']
     metrics_path: /status/prometheus
     scheme: http
-    basic_auth:
-      username: erp_adm
-      password: secret
