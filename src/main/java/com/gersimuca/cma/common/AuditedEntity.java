@@ -3,6 +3,7 @@ package com.gersimuca.cma.common;
 import com.gersimuca.cma.feature.user.UserEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
@@ -24,7 +25,7 @@ public class AuditedEntity {
   @Column(name = "created_at", nullable = false, updatable = false)
   private OffsetDateTime createdAt;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @CreatedBy
   @JoinColumn(name = "created_user_id", nullable = false, updatable = false)
   private UserEntity createdBy;
@@ -33,7 +34,7 @@ public class AuditedEntity {
   @Column(name = "last_updated_at", nullable = false)
   private OffsetDateTime lastUpdatedAt;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @LastModifiedBy
   @JoinColumn(name = "last_updated_user_id", nullable = false)
   private UserEntity lastModifiedBy;

@@ -1,0 +1,80 @@
+### Create New User
+# @no-cookie-jar
+POST {{Api-URL}}/api/users
+Content-Type: application/json
+Authorization: Bearer {{$auth.token("token")}}
+
+> {%
+    import {assertResponseStatus} from './rest-client.util.js'
+
+    assertResponseStatus(200, 409);
+%}
+
+### Get Current User
+# @no-cookie-jar
+GET {{Api-URL}}/api/users/current-user
+Content-Type: application/json
+Authorization: Bearer {{$auth.token("token")}}
+
+> {%
+    import {assertResponseStatus, assertResponseBodyPropertyIsNotEmpty} from './rest-client.util.js'
+
+    assertResponseStatus(200)
+    assertResponseBodyPropertyIsNotEmpty("user.username")
+%}
+
+### Get Current User's roles
+# @no-cookie-jar
+GET {{Api-URL}}/api/users/current-user/roles
+Content-Type: application/json
+Authorization: Bearer {{$auth.token("token")}}
+
+> {%
+    import {assertResponseStatus, assertResponseBodyPropertyIsNotEmpty} from './rest-client.util.js'
+
+    assertResponseStatus(200)
+    assertResponseBodyPropertyIsNotEmpty("roles")
+%}
+
+### Swagger UI Check
+# @no-cookie-jar
+GET {{Api-URL}}/api/swagger-ui/index.html
+
+> {%
+    import {assertResponseStatus} from './rest-client.util.js'
+
+    assertResponseStatus(200)
+%}
+
+### Liveness Check
+# @no-cookie-jar
+GET {{Health-URL}}/status/health/liveness
+
+> {%
+    import {assertResponseStatus, assertResponseBodyPropertyHasValue} from './rest-client.util.js'
+
+    assertResponseStatus(200)
+    assertResponseBodyPropertyHasValue("status", "UP")
+%}
+
+### Readiness Check
+# @no-cookie-jar
+GET {{Health-URL}}/status/health/readiness
+
+> {%
+    import {assertResponseStatus, assertResponseBodyPropertyHasValue} from './rest-client.util.js'
+
+    assertResponseStatus(200)
+    assertResponseBodyPropertyHasValue("status", "UP")
+%}
+
+### Prometheus Check
+# @no-cookie-jar
+GET {{Health-URL}}/status/prometheus
+
+> {%
+    import {assertResponseStatus, assertResponseBodyTextContains} from './rest-client.util.js'
+
+    assertResponseStatus(200)
+    assertResponseBodyTextContains("system_cpu_count")
+%}

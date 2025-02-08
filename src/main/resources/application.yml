@@ -80,6 +80,10 @@ server:
 logging:
   level:
     root: ${LOG_LEVEL:INFO}
+    org:
+      hibernate:
+        SQL: debug
+        orm.jdbc.bind: trace
 
 async:
   core-pool-size: 5

@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicInsert;
 
 @Entity
@@ -22,6 +23,7 @@ import org.hibernate.annotations.DynamicInsert;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
+@BatchSize(size = 50)
 public class UserEntity extends AuditedEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
