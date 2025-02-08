@@ -10,7 +10,7 @@ To start your own new application clone this repository.
 > Connect for a new client/project, an onboarding is necessary. Developer or Application Owner.
 
 Authorization is done using the OpenID connect support of *Spring* security and the LHT *Keycloak*.
-The `erp-api-service` uses a configured `engdci` client that has multiple users:
+The `erp-api-service` uses a configured `erp` client that has multiple users:
 
 - admin
 - readonly
