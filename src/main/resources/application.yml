@@ -49,18 +49,19 @@ cors:
 
 management:
   endpoints:
-    enabled-by-default: false
     web:
       exposure:
         include: health, prometheus
       base-path: /status
+    access:
+      default: read_only
   endpoint:
     health:
-      enabled: true
       probes:
         enabled: true
+      access:
     prometheus:
-      enabled: true
+      access: read_only
   server:
     port: 8090
 
@@ -80,10 +81,7 @@ server:
 logging:
   level:
     root: ${LOG_LEVEL:INFO}
-    org:
-      hibernate:
-        SQL: debug
-        orm.jdbc.bind: trace
+
 
 async:
   core-pool-size: 5
