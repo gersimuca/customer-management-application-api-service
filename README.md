@@ -1,28 +1,75 @@
-###  Customer Management Application
+# ERP Api Service App
 
-Connects all clients on the Staff managment and see their requestEntity & automated system to refuse the requestEntity is it is beyond capabilitiesof the system to fulfilled.
+## Getting Started
 
-Central secure database structure that organizes, stores and retrieves real-time information
+To start your own new application clone this repository.
 
-Client feedback system (Feedback from the userEntity about the product).
+### Authorization
 
-The following are the key features of a typical CMA:
+> On Authentication and Authorisation is done by OpenID Connect. For using the RedHat SSO with OpenID
+> Connect for a new client/project, an onboarding is necessary. Developer or Application Owner.
 
-Customer Data Management: Store and manage customer data, including demographic information, contact details, and purchase history.
+Authorization is done using the OpenID connect support of *Spring* security and the LHT *Keycloak*.
+The `erp-api-service` uses a configured `engdci` client that has multiple users:
 
-Lead Management: Organize and prioritize leads, track their status, and assign them to team members for follow-up.
+- admin
+- readonly
+- user
 
-Contact Management: Keep track of customer interactions, such as emails, phone calls, and appointments, and assign follow-up tasks to team members.
+Check out the `requests.http` file where you can authenticate as one of the two and fire up requests against the API.
 
-Sales Management: Manage the sales process, from lead generation to closing deals, and track sales performance with reports and analytics.
+### Health Services
 
-Customer Service Management: Handle customer inquiries and support requests, track customer satisfaction, and resolve customer issues.
+This application uses *Spring Boot Actuator* to provide basic health checks.
 
-Marketing Automation: Automate marketing campaigns, segment customer lists, and track the effectiveness of marketing efforts.
+| ***Route***                    | ***Description***                           |
+|--------------------------------|---------------------------------------------|
+| ```/status/health/liveness```  | The application is up and running.          |
+| ```/status/health/readiness``` | The application is ready to serve requests. |
 
-Integrations: Integrate with other software systems, such as email marketing tools, payment gateways, and social media platforms.
+### Databases
 
-Customization: Customize the CMA to meet the specific needs of an organization, such as adding new fields to customer records, creating custom reports, and setting up automated workflows.
+We use *Flyway* for the database migrations. For database changes, please create a new migration file
+with a version, it will be applied at the next app start.
 
-The target audience for a CMA can be small businesses, sales teams, customer service teams, and marketing teams, among others.
+To run a *SQL Sever* instance locally just run ```$ docker-compose -f docker/docker-compose.yml up -d```.
+This database is getting pre-filled at application start up.
 
+### OpenAPI Documentation
+
+*OpenAPI* documentation is generated via [springdoc](https://github.com/springdoc/springdoc-openapi).
+The JSON specification is available
+
+## Configuration
+
+The application should be configured via environment variables.
+Environment variables will overwrite certain stage/deployment specific properties in the `application.yaml`.
+In OpenShift the environment variables are provided via the `DeploymentConfig`.
+
+| Variable               | Effect                                                                                | Value for local dev                                                                                                                                                                         |
+|------------------------|---------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `DB_JDBC_URL`          | JDBC connection string.                                                               | `jdbc:sqlserver://localhost:1433;database=engdci_db;encrypt=false;trustServerCertificate=false;`                                                                                            |
+| `DB_USERNAME`          | Database username.                                                                    | `erp_db_user`                                                                                                                                                                            |
+| `DB_PASSWORD`          | Database password.                                                                    | `secretL0calPassword`                                                                                                                                                                       |
+| `DB_JDBC_DRIVER`       | The JDBC driver, such as \*com.microsoft.sqlserver.jdbc.SQLServerDriver\* (Azure DB). | `com.microsoft.sqlserver.jdbc.SQLServerDriver`                                                                                                                                              |
+| `SSO_CLIENT_ID`        | The SSO client.                                                                       | `erp`                                                                                                                                                                                    |
+| `SSO_JWK_SET_URI`      | URL to the SSO certificate endpoint.                                                  | `http://localhost:8180/auth/realms/ERP/protocol/openid-connect/certs`                                                                                                                       |
+| `CORS_ALLOWED_ORIGINS` | Comma separated allowed CORS origin URLs.                                             | `http://localhost:4200`                                                                                                                                                                     |
+| `LOG_LEVEL`            | Sets the \*Spring\* root log level.                                                   |                                                                                                                                                 
+
+## Development
+
+### Starting local infrastructure
+
+It is recommended to develop against the local *SQL Server* instance. To make it available, execute the following
+command:
+
+- `docker compose -f docker/docker-compose.yml up -d` (macOS and Linux)
+- `docker compose -f docker\docker-compose.yml up -d` (Windows)
+
+### Starting the service
+
+#### IntelliJ (for development only)
+
+If you are using IntelliJ, you should create run configurations and make sure to configure the
+appropriate [environment variables](#Configuration) to each configuration.
