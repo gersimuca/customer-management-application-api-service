@@ -20,7 +20,7 @@
                     <customFields>
                         {
                         "host": "${HOSTNAME}",
-                        "lhtappid": "${APP_ID}",
+                        "gmappid": "${APP_ID}",
                         "namespace": "${ERP_LOGGING_NAMESPACE}",
                         "stage": "${ERP_LOGGING_STAGE}"
                         }
