@@ -1,0 +1,16 @@
+dist/
+cypress/
+cypress.config.ts
+
+jest.config.js
+jestGlobalMocks.ts
+setup-jest.ts
+
+src/environments/
+
+src/data-access/
+
+src/main.ts
+
+src/polyfills.ts
+
